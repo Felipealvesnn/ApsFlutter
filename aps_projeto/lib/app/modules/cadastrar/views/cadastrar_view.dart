@@ -12,7 +12,7 @@ class CadastrarView extends GetView<CadastrarController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('CadastrarView'),
+        title: const Text('Tela de Cadastro'),
         centerTitle: true,
         backgroundColor: Colors.green,
       ),

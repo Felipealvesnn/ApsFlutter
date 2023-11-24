@@ -2,19 +2,19 @@ import 'dart:convert';
 
 class ObjetoCadastrar {
   int? id;
-  String nome;
-  String classificacao;
-  String nomePessoa;
-  String dataDevolucao;
-  String observacoes;
+  String? nome;
+  String? classificacao;
+  String? nomePessoa;
+  String? dataDevolucao;
+  String? observacoes;
 
   ObjetoCadastrar({
     this.id,
-    required this.nome,
-    required this.classificacao,
-    required this.nomePessoa,
-    required this.dataDevolucao,
-    required this.observacoes,
+     this.nome,
+     this.classificacao,
+     this.nomePessoa,
+     this.dataDevolucao,
+     this.observacoes,
   });
 
   // Converte o objeto FormData para um mapa para ser inserido no banco de dados

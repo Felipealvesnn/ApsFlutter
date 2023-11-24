@@ -38,6 +38,8 @@ dependencies:
   get: ^4.6.6
   sqflite: ^2.3.0
   flutter_masked_text2: ^0.9.1
+  flutter_datetime_picker:
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

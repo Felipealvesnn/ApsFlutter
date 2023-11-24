@@ -54,10 +54,40 @@ class DbUtil {
     );
   }
 
-  static Future<List<ObjetoCadastrar>> getAllFormData() async {
-    final db = await databaseStatic();
-    final List<Map<String, dynamic>> maps = await db.query('tarefas');
+  // static Future<List<ObjetoCadastrar>> getAllFormData() async {
+  //   final db = await databaseStatic();
+  //   final List<Map<String, dynamic>> maps = await db.query('tarefas');
 
+  //   return List.generate(maps.length, (index) {
+  //     return ObjetoCadastrar(
+  //       id: maps[index]['id'],
+  //       nome: maps[index]['nome'],
+  //       classificacao: maps[index]['classificacao'],
+  //       nomePessoa: maps[index]['nomePessoa'],
+  //       dataDevolucao: maps[index]['dataDevolucao'],
+  //       observacoes: maps[index]['observacoes'],
+  //     );
+  //   });
+  // }
+
+  static Future<List<ObjetoCadastrar>> getAllFormData(
+      {String? searchText}) async {
+    final db = await databaseStatic();
+
+    // Construa a consulta SQL base
+    String sql = 'SELECT * FROM tarefas';
+
+    // Adicione uma cláusula WHERE se houver um texto de pesquisa
+    List<dynamic> arguments = [];
+    if (searchText != null && searchText.isNotEmpty) {
+      arguments.add('%$searchText%');
+      sql += ' WHERE nome LIKE ?';
+    }
+
+    // Execute a consulta
+    final List<Map<String, dynamic>> maps = await db.rawQuery(sql, arguments);
+
+    // Mapeie os resultados para objetos
     return List.generate(maps.length, (index) {
       return ObjetoCadastrar(
         id: maps[index]['id'],

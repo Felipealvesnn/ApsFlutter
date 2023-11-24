@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:aps_projeto/app/models/objetoCadast.dart';
 import 'package:aps_projeto/app/modules/cadastrar/controllers/cadastrar_controller.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +61,19 @@ class CardForm extends StatelessWidget {
               return SingleChildScrollView(
                 child: Column(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        onChanged: (textoPesquisa) async {
+                          // Implemente a lógica de pesquisa aqui
+                          controller.searchTitle.value = textoPesquisa;
+                        },
+                        decoration: const InputDecoration(
+                          labelText: 'Pesquisar',
+                          prefixIcon: Icon(Icons.search),
+                        ),
+                      ),
+                    ),
                     ListView.builder(
                       shrinkWrap:
                           true, // Adicione o shrinkWrap para evitar o erro
@@ -69,7 +84,7 @@ class CardForm extends StatelessWidget {
                         return Card(
                           margin: const EdgeInsets.symmetric(vertical: 8),
                           child: ListTile(
-                            title: Text(formData.nome),
+                            title: Text(formData.nome!),
                             subtitle:
                                 Text('Devolução: ${formData.dataDevolucao}'),
                             trailing: IconButton(

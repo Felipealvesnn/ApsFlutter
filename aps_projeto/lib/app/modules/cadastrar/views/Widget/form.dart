@@ -1,5 +1,7 @@
-import 'package:aps_projeto/app/modules/cadastrar/controllers/cadastrar_controller.dart';
+import 'package:aps_projeto/app/services/funcoesUltil.dart';
 import 'package:flutter/material.dart';
+import 'package:aps_projeto/app/modules/cadastrar/controllers/cadastrar_controller.dart';
+import 'package:get/get.dart';
 
 class MyForm extends StatelessWidget {
   final CadastrarController controller;
@@ -44,19 +46,31 @@ class MyForm extends StatelessWidget {
                 return null;
               },
             ),
-            TextFormField(
-              controller: controller
-                  .dataDevolucaoController, // Use o novo controller aqui
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Data de Devolução',
+            Obx(
+              () =>
+                  // Campo para a data de devolução
+                  TextFormField(
+                onTap: () {
+                  openCalendar(context, controller.dataDevolucaoController);
+                },
+                controller: controller.dataDevolucaoController.value,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Data de Devolução',
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      openCalendar(context, controller.dataDevolucaoController);
+                    },
+                    icon: const Icon(Icons.calendar_today),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira a data';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, insira a data';
-                }
-                return null;
-              },
             ),
             TextFormField(
               controller: controller.observacoesController,
