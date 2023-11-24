@@ -60,7 +60,8 @@ class MyForm extends StatelessWidget {
                   suffixIcon: IconButton(
                     onPressed: () {
                       openCalendar(context, controller.dataDevolucaoController);
-                      FocusScope.of(context).unfocus();
+                      Get.focusScope!.unfocus();
+                      //FocusScope.of(context).unfocus();
                     },
                     icon: const Icon(Icons.calendar_today),
                   ),
