@@ -1,5 +1,6 @@
 import 'package:aps_projeto/app/data/db.util.dart';
 import 'package:aps_projeto/app/models/objetoCadast.dart';
+import 'package:aps_projeto/app/services/funcoesNotificacao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -24,9 +25,9 @@ class CadastrarController extends GetxController {
   late TextEditingController classificacaoController;
   late TextEditingController nomePessoaController;
   late Rx<TextEditingController> dataDevolucaoController;
- // final dataDevolucaoController = MaskedTextController(mask: '00/00/0000');
+  // final dataDevolucaoController = MaskedTextController(mask: '00/00/0000');
   late TextEditingController observacoesController;
-   RxString searchTitle = ''.obs;
+  RxString searchTitle = ''.obs;
 
   @override
   void onInit() async {
@@ -39,16 +40,15 @@ class CadastrarController extends GetxController {
 
     await getAllFormData();
 
-     debounce(
+    debounce(
       searchTitle,
       (callback) {
         print("callback  as Strin");
         pesquisarObjeto(searchTitle.value);
-       // update();
+        // update();
       },
       time: const Duration(milliseconds: 600),
     );
-
   }
 
   Future<void> deleteFormData(int id) async {
@@ -61,6 +61,7 @@ class CadastrarController extends GetxController {
     final ojetos = await DbUtil.getAllFormData();
     listObjetos.value = ojetos;
   }
+
   Future<void> pesquisarObjeto(String nome) async {
     final ojetos = await DbUtil.getAllFormData(searchText: nome);
     listObjetos.value = ojetos;
@@ -76,6 +77,7 @@ class CadastrarController extends GetxController {
         observacoes: observacoesController.text,
       );
       await DbUtil.insertFormData(formData);
+      NotificacoesGerais.notificarEstacionar();
       await getAllFormData();
 
       nomeController.clear();
